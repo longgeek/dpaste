@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Settings to override &mdash; dpaste 2.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="dpaste 2.2 documentation" href="index.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Integrate dpaste into an existing project" href="integration.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="integration.html" title="Integrate dpaste into an existing project"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">dpaste 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="settings-to-override">
+<h1>Settings to override<a class="headerlink" href="#settings-to-override" title="Permalink to this headline">¶</a></h1>
+<p>When dpaste is installed as a standalone service or integrated into an existing
+project there are various settings you can override to adjust dpaste&#8217;s
+behavior without touching the code:</p>
+<dl class="glossary docutils">
+<dt id="term-dpaste-slug-length"><tt class="docutils literal"><span class="pre">DPASTE_SLUG_LENGTH</span></tt></dt>
+<dd>Integer. Length of the random slug for each new snippet. In the rare
+case an existing slug is generated again, the length will increase by
+one more character.
+Default: <tt class="docutils literal"><span class="pre">4</span></tt></dd>
+<dt id="term-dpaste-slug-choices"><tt class="docutils literal"><span class="pre">DPASTE_SLUG_CHOICES</span></tt></dt>
+<dd>String. A string of characters which are used to create the random slug.
+Default: <tt class="docutils literal"><span class="pre">abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ1234567890</span></tt></dd>
+<dt id="term-dpaste-lexer-default"><tt class="docutils literal"><span class="pre">DPASTE_LEXER_DEFAULT</span></tt></dt>
+<dd>String. The lexer key that is pre-selected in the dropdown. Note that
+this is only used if the user has not saved a snippet before, otherwise
+we use the last-used lexer. Default: <tt class="docutils literal"><span class="pre">python</span></tt></dd>
+<dt id="term-dpaste-max-content-length"><tt class="docutils literal"><span class="pre">DPASTE_MAX_CONTENT_LENGTH</span></tt></dt>
+<dd>Integer. Maximum number of bytes per snippet. Default: <tt class="docutils literal"><span class="pre">250</span> <span class="pre">*</span> <span class="pre">1024</span> <span class="pre">*</span> <span class="pre">1024</span></tt></dd>
+<dt id="term-dpaste-max-snippets-per-user"><tt class="docutils literal"><span class="pre">DPASTE_MAX_SNIPPETS_PER_USER</span></tt></dt>
+<dd>Integer. Maximum number of snippets we save in teh user session and
+display on the history page. Default: <tt class="docutils literal"><span class="pre">10</span></tt></dd>
+<dt id="term-dpaste-base-url"><tt class="docutils literal"><span class="pre">DPASTE_BASE_URL</span></tt></dt>
+<dd>String. The full qualified hostname and path to the dpaste instance.
+This is used to generate a link in the API response. Default: <tt class="docutils literal"><span class="pre">https://dpaste.de</span></tt></dd>
+<dt id="term-dpaste-site-name"><tt class="docutils literal"><span class="pre">DPASTE_SITE_NAME</span></tt></dt>
+<dd>String. Site name to display in page titles. Default:
+<tt class="docutils literal"><span class="pre">dpaste.de</span></tt></dd>
+<dt id="term-dpaste-lexer-list"><tt class="docutils literal"><span class="pre">DPASTE_LEXER_LIST</span></tt></dt>
+<dd><p class="first">Choices. A tuple of choices of Pygments lexers used in the lexer
+dropdown. Here is the full <a class="reference external" href="https://github.com/bartTC/dpaste/blob/master/dpaste/highlight.py#L25">lexer list</a> which is currently used.
+Example:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="n">DPASTE_LEXER_LIST</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">&#39;delphi&#39;</span><span class="p">,</span> <span class="s">&#39;Delphi&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;php&#39;</span><span class="p">,</span> <span class="s">&#39;PHP&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">,</span> <span class="s">&#39;Text&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt id="term-dpaste-expire-choices"><tt class="docutils literal"><span class="pre">DPASTE_EXPIRE_CHOICES</span></tt></dt>
+<dd><p class="first">Choices. A tuple of seconds and a descriptive string used in the lexer
+expiration dropdown. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="n">DPASTE_EXPIRE_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="mi">3600</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;In one hour&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;In one week&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;In one month&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;100 Years&#39;</span><span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>One-Time snippets</strong> are supported. One-Time snippets are automatically
+deleted once a defined view count has reached (Default: <tt class="docutils literal"><span class="pre">2</span></tt>). To
+enable one-time snippets you have to add a choice <tt class="docutils literal"><span class="pre">onetime</span></tt> to the
+expire choices:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="n">DPASTE_EXPIRE_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">&#39;onetime&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;One-Time snippet&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">3600</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;In one hour&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;In one week&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;In one month&#39;</span><span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also set the maximum view count after what the snippet gets
+deleted. The default is <tt class="docutils literal"><span class="pre">2</span></tt>. One view is from the author, one view
+is from another user:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DPASTE_ONETIME_LIMIT</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p><strong>Infinite snippets</strong> are supported. You can keep snippets forever when
+you set the choice key to <tt class="docutils literal"><span class="pre">never</span></tt>. The management command will ignore
+these snippets:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="n">DPASTE_EXPIRE_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="mi">3600</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;In one hour&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s">u&#39;never&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;Never&#39;</span><span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt id="term-dpaste-expire-default"><tt class="docutils literal"><span class="pre">DPASTE_EXPIRE_DEFAULT</span></tt></dt>
+<dd>The key of the default value of <tt class="docutils literal"><span class="pre">DPASTE_EXPIRE_CHOICES</span></tt>. Default:
+<tt class="docutils literal"><span class="pre">3600</span> <span class="pre">*</span> <span class="pre">24</span> <span class="pre">*</span> <span class="pre">30</span> <span class="pre">*</span> <span class="pre">12</span> <span class="pre">*</span> <span class="pre">100</span></tt> or simpler: <tt class="docutils literal"><span class="pre">DPASTE_EXPIRE_CHOICES[2][0]</span></tt>.</dd>
+<dt id="term-dpaste-enable-gist"><tt class="docutils literal"><span class="pre">DPASTE_ENABLE_GIST</span></tt></dt>
+<dd>Boolean. Whether to display the Gist button for re-pasting to GitHub.
+Default: <tt class="docutils literal"><span class="pre">True</span></tt></dd>
+<dt id="term-dpaste-default-gist-name"><tt class="docutils literal"><span class="pre">DPASTE_DEFAULT_GIST_NAME</span></tt></dt>
+<dd>String. The filename used when pasting a snippet on Github Gist.
+Default: <tt class="docutils literal"><span class="pre">dpaste.de_snippet.py</span></tt></dd>
+<dt id="term-dpaste-default-gist-description"><tt class="docutils literal"><span class="pre">DPASTE_DEFAULT_GIST_DESCRIPTION</span></tt></dt>
+<dd>String. The filename used when pasting a snippet on Github Gist.
+Default: <tt class="docutils literal"><span class="pre">dpaste.de_snippet.py</span></tt></dd>
+<dt id="term-dpaste-jquery-url"><tt class="docutils literal"><span class="pre">DPASTE_JQUERY_URL</span></tt></dt>
+<dd>String. URL to use for jQuery.
+Default: <tt class="docutils literal"><span class="pre">//ajax.googleapis.com/ajax/libs/jquery/1/jquery.js</span></tt></dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="integration.html"
+                        title="previous chapter">Integrate dpaste into an existing project</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/settings.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="integration.html" title="Integrate dpaste into an existing project"
+             >previous</a> |</li>
+        <li><a href="index.html">dpaste 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Martin Mahner.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

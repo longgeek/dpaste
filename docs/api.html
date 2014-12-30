@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; dpaste 2.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="dpaste 2.2 documentation" href="index.html" />
+    <link rel="prev" title="Settings to override" href="settings.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="settings.html" title="Settings to override"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">dpaste 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>dpaste provides a simple API endpoint to create new snippets. All you need to
+do is a simple <tt class="docutils literal"><span class="pre">POST</span></tt> request to the API endpoint <tt class="docutils literal"><span class="pre">/api/</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>POST http://dpaste.de/api/
+</pre></div>
+</div>
+<div class="section" id="available-post-data-for-an-api-call">
+<h2>Available POST data for an API call:<a class="headerlink" href="#available-post-data-for-an-api-call" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="content-required">
+<h3><tt class="docutils literal"><span class="pre">content</span></tt> (required)<a class="headerlink" href="#content-required" title="Permalink to this headline">¶</a></h3>
+<p>The UTF-8 encoded string you want to paste.</p>
+</div>
+<div class="section" id="lexer-optional">
+<h3><tt class="docutils literal"><span class="pre">lexer</span></tt> (optional)<a class="headerlink" href="#lexer-optional" title="Permalink to this headline">¶</a></h3>
+<p>Can also be set via GET. The lexer string key used for highlighting.
+See <a class="reference external" href="https://github.com/bartTC/dpaste/blob/master/dpaste/highlight.py#L25">lexer list</a>  for a full list of choices. Default: <tt class="docutils literal"><span class="pre">python</span></tt>.</p>
+</div>
+<div class="section" id="format-optional">
+<h3><tt class="docutils literal"><span class="pre">format</span></tt> (optional)<a class="headerlink" href="#format-optional" title="Permalink to this headline">¶</a></h3>
+<p>Can also be set via GET. The format of the API response. Choices are:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">default</span></tt> — Returns a full qualified URL wrapped in quotes. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;https://dpaste.de/xsWd&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">url</span></tt> — Returns the full qualified URL to the snippet, without surrounding
+quotes, but with a line break. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>https://dpaste.de/xsWd\n
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">json</span></tt> — Returns a JSON object containing the URL, lexer and content of the
+the snippet. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;url&quot;</span><span class="p">:</span> <span class="s">&quot;https://dpaste.de/xsWd&quot;</span><span class="p">,</span>
+    <span class="s">&quot;lexer&quot;</span><span class="p">:</span> <span class="s">&quot;python&quot;</span><span class="p">,</span>
+    <span class="s">&quot;conent&quot;</span><span class="p">:</span> <span class="s">&quot;The text body of the snippet.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="expires-optional">
+<h3><tt class="docutils literal"><span class="pre">expires</span></tt> (optional)<a class="headerlink" href="#expires-optional" title="Permalink to this headline">¶</a></h3>
+<p>Can also be set via GET. A keyword to indicate the lifetime of a
+snippetn in seconds. The values are predefined by the server. Calling this with
+an invalid value returns a HTTP 400 BadRequest together with a list of valid
+values. Default: <tt class="docutils literal"><span class="pre">2592000</span></tt>. In the default configuration valid values are:</p>
+<ul class="simple">
+<li>onetime</li>
+<li>never</li>
+<li>3600</li>
+<li>604800</li>
+<li>2592000</li>
+</ul>
+</div>
+<div class="section" id="filename-optional">
+<h3><tt class="docutils literal"><span class="pre">filename</span></tt> (optional)<a class="headerlink" href="#filename-optional" title="Permalink to this headline">¶</a></h3>
+<p>Can also be set via GET. A filename which we use to determine a lexer, if
+<tt class="docutils literal"><span class="pre">lexer</span></tt> is not set. In case we can&#8217;t determine a file, the lexer will fallback
+to <tt class="docutils literal"><span class="pre">plain</span></tt> code (no highlighting). A given <tt class="docutils literal"><span class="pre">lexer</span></tt> will overwrite any
+filename! Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;url&quot;</span><span class="p">:</span> <span class="s">&quot;https://dpaste.de/xsWd&quot;</span><span class="p">,</span>
+    <span class="s">&quot;lexer&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="s">&quot;filename&quot;</span><span class="p">:</span> <span class="s">&quot;python&quot;</span><span class="p">,</span>
+    <span class="s">&quot;conent&quot;</span><span class="p">:</span> <span class="s">&quot;The text body of the snippet.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will create a <tt class="docutils literal"><span class="pre">python</span></tt> highlighted snippet. However in this example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;url&quot;</span><span class="p">:</span> <span class="s">&quot;https://dpaste.de/xsWd&quot;</span><span class="p">,</span>
+    <span class="s">&quot;lexer&quot;</span><span class="p">:</span> <span class="s">&quot;php&quot;</span><span class="p">,</span>
+    <span class="s">&quot;filename&quot;</span><span class="p">:</span> <span class="s">&quot;python&quot;</span><span class="p">,</span>
+    <span class="s">&quot;conent&quot;</span><span class="p">:</span> <span class="s">&quot;The text body of the snippet.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since the lexer is set too, we will create a <tt class="docutils literal"><span class="pre">php</span></tt> highlighted snippet.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since <tt class="docutils literal"><span class="pre">lexer</span></tt> defaults to <tt class="docutils literal"><span class="pre">python</span></tt> you have to specifically
+unset it when using <tt class="docutils literal"><span class="pre">filename</span></tt>.</p>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You need to adjust the setting <tt class="docutils literal"><span class="pre">DPASTE_BASE_URL</span></tt> which is used
+to generate the full qualified URL in the API response. See <a class="reference internal" href="settings.html"><em>Settings to override</em></a>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When creating new snippets via the API, they won&#8217;t be listed on the
+history page since they are related to a browser session.</p>
+</div>
+</div>
+</div>
+<div class="section" id="example-code-snippets">
+<h2>Example code snippets:<a class="headerlink" href="#example-code-snippets" title="Permalink to this headline">¶</a></h2>
+<p>A sample Python 2 script to publish snippets:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">paste_code</span><span class="p">():</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+        <span class="s">&#39;https://dpaste.de/api/&#39;</span><span class="p">,</span>
+        <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">([(</span><span class="s">&#39;content&#39;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">())]),</span>
+    <span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="c"># Strip surrounding quotes (NB: response has no trailing newline)</span>
+    <span class="k">print</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">paste_code</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can simply use curl to publish a whole file:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ alias dpaste=&quot;curl -F &#39;content=&lt;-&#39; https://dpaste.de/api/?format=url&quot;
+$ cat foo.txt | dpaste
+https://dpaste.de/ke2pB
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#available-post-data-for-an-api-call">Available POST data for an API call:</a><ul>
+<li><a class="reference internal" href="#content-required"><tt class="docutils literal"><span class="pre">content</span></tt> (required)</a></li>
+<li><a class="reference internal" href="#lexer-optional"><tt class="docutils literal"><span class="pre">lexer</span></tt> (optional)</a></li>
+<li><a class="reference internal" href="#format-optional"><tt class="docutils literal"><span class="pre">format</span></tt> (optional)</a></li>
+<li><a class="reference internal" href="#expires-optional"><tt class="docutils literal"><span class="pre">expires</span></tt> (optional)</a></li>
+<li><a class="reference internal" href="#filename-optional"><tt class="docutils literal"><span class="pre">filename</span></tt> (optional)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-code-snippets">Example code snippets:</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="settings.html"
+                        title="previous chapter">Settings to override</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="settings.html" title="Settings to override"
+             >previous</a> |</li>
+        <li><a href="index.html">dpaste 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Martin Mahner.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

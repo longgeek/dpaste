@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Integrate dpaste into an existing project &mdash; dpaste 2.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="dpaste 2.2 documentation" href="index.html" />
+    <link rel="next" title="Settings to override" href="settings.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="settings.html" title="Settings to override"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">dpaste 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="integrate-dpaste-into-an-existing-project">
+<h1>Integrate dpaste into an existing project<a class="headerlink" href="#integrate-dpaste-into-an-existing-project" title="Permalink to this headline">¶</a></h1>
+<p>Dpaste needs at least Django 1.4+ and is tested on Python 2.7 as well as
+Python 3.3.</p>
+<p>Install the latest dpaste release in your environment. This will install all
+necessary dependencies of dpaste as well:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install dpaste
+</pre></div>
+</div>
+<p>Add <tt class="docutils literal"><span class="pre">dpaste</span></tt> and (preferred) <tt class="docutils literal"><span class="pre">south</span></tt> to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="c"># ...</span>
+
+    <span class="s">&#39;mptt&#39;</span><span class="p">,</span>
+    <span class="s">&#39;dpaste&#39;</span><span class="p">,</span>
+    <span class="c"># &#39;south&#39;, (supported)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Add <tt class="docutils literal"><span class="pre">dpaste</span></tt> and if you want the <tt class="docutils literal"><span class="pre">dpaste_api</span></tt> to your urlpatterns:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="c"># ...</span>
+
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;pastebin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;dpaste.urls.dpaste&#39;</span><span class="p">)),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;pastebin/api/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;dpaste.urls.dpaste_api&#39;</span><span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally just <tt class="docutils literal"><span class="pre">syncdb</span></tt> or if you use South, migrate:</p>
+<div class="highlight-python"><div class="highlight"><pre>manage.py migrate dpaste
+</pre></div>
+</div>
+<div class="section" id="purge-expired-snippets">
+<h2>Purge expired snippets<a class="headerlink" href="#purge-expired-snippets" title="Permalink to this headline">¶</a></h2>
+<p>Do not forget to setup a cron job to purge expired snippets. You need to
+run the management command <tt class="docutils literal"><span class="pre">cleanup_snippets</span></tt>. A cron job I use looks like:</p>
+<div class="highlight-python"><div class="highlight"><pre>30 * * * * /srv/dpaste.de/bin/python /srv/dpaste.de/bin/manage.py cleanup_snippets &gt; /dev/null
+</pre></div>
+</div>
+<p>Note also that dpaste does <em>not</em> come with Django admin integration. You need
+to setup an register the models in an <tt class="docutils literal"><span class="pre">admin.py</span></tt> yourself.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For further customization see <a class="reference internal" href="settings.html"><em>Settings to override</em></a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Integrate dpaste into an existing project</a><ul>
+<li><a class="reference internal" href="#purge-expired-snippets">Purge expired snippets</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="settings.html"
+                        title="next chapter">Settings to override</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/integration.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="settings.html" title="Settings to override"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="index.html">dpaste 2.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Martin Mahner.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
