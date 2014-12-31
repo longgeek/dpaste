@@ -1,0 +1,166 @@
+@import "_pygments.scss";
+@import "_mobile.scss";
+
+$MAIN_COLOR: #08c;
+$SEC_COLOR: #f0f3f4;
+
+$PAGE_PADDING: 2rem;
+
+@mixin monospace-text {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: .75rem;
+    line-height: 1.30rem;
+}
+
+body, input, select {
+    font-family: "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    font-weight: 300;
+}
+
+
+body {
+    background-color: white;
+    color: #575451;
+    margin: 0;
+    padding: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   Header
+---------------------------------------------------------------------------- */
+
+#pageheader {
+    border-bottom: 1px solid $SEC_COLOR;
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: stretch;
+        padding: 1rem $PAGE_PADDING;
+
+        h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 1rem;
+            font-weight: normal;
+            align-self: center;
+            flex-grow: 1;
+
+            a { padding-left: 0; }
+        }
+
+        a {
+            color: #08c;
+            align-self: center;
+            padding-left: .5rem;
+            text-decoration: none;
+
+            &:hover {
+                color: $MAIN_COLOR;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+h2 {
+    font-weight: normal;
+    color: black;
+    font-size: 1.1rem;
+    border-bottom: 1px solid $SEC_COLOR;
+    margin: 2rem 0 1rem 0;
+    padding: 0 0 .3rem 0;
+    color: $MAIN_COLOR;
+}
+
+article {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    padding: 1rem $PAGE_PADDING;
+}
+
+.snippet-form {
+    textarea {
+        width: 100%;
+        height: 300px;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        padding: .5rem;
+        @include monospace-text;
+    }
+
+    .options {
+        background-color: #f5f5f5;
+        border-top: 1px solid #e5e5e5;
+        padding: 1rem 0.5rem;
+        margin: 1rem 0 0 0;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        select, input {
+            margin: 0 .5rem;
+            font-size: large;
+        }
+
+        input {
+            background-color: $MAIN_COLOR;
+            color: White;
+            border: none;
+            border-radius: 0rem;
+            padding: .4rem 1rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .submit {
+            .shortcut {
+                color: #AAA;
+                font-weight: 300;
+                font-size: .85rem;
+                margin-right: 1rem;
+            }
+
+            flex-grow: 1;
+            text-align: right;
+        }
+    }
+}
+
+/* ----------------------------------------------------------------------------
+   Code section
+---------------------------------------------------------------------------- */
+
+.code {
+    margin: 0 0-$PAGE_PADDING;
+    padding: 20px 0;
+    background: #232829;
+    color: #f8f8f2;
+
+    @include monospace-text;
+
+    &.wordwrap {
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+    ol {
+        margin: 0 0 0 20px;
+
+        li {
+            color: #aaa;
+            cursor: pointer;
+            padding-left: 5px;
+
+            &.marked {
+                color: #f4e009;
+                background-color: #4f4800;
+                margin-right: -30px;
+                padding-right: 30px;
+            }
+        }
+    }
+}

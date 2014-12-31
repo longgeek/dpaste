@@ -1,0 +1,196 @@
+/* ----------------------------------------------------------------------------
+   Basics
+---------------------------------------------------------------------------- */
+
+body {
+    padding: 10px 0 40px 0;
+}
+
+tt strong {
+    background-color: #ffe699;
+    outline: 3px solid #ffe699;
+}
+
+.news {
+    max-width: 400px;
+    color: #999;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.news h2 {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.news p {
+    margin: 5px 0 10px;
+}
+
+.message {
+    margin: 0;
+    padding: 10px 30px;
+    background-color: gold;
+    text-shadow: 0 1px 0 #ffea90;
+}
+
+/* Custom container */
+.container-fluid {
+    margin: 0 auto;
+    padding: 0;
+}
+
+.container-fluid > div,
+.container-fluid > header,
+.container-fluid > form,
+.container-fluid > h2,
+.container-fluid > h3,
+.container-fluid > h4 {
+    padding: 0 30px;
+}
+
+.row-fluid {
+    width: auto;
+}
+
+.container > hr {
+    margin: 20px 0;
+}
+
+.headline{
+    color: #5393b4;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 300;
+}
+
+/* ----------------------------------------------------------------------------
+   Snippet form
+---------------------------------------------------------------------------- */
+#id_content{
+    box-sizing: border-box;
+    width: 100%;
+    height: 300px;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 0;
+}
+
+.form-options-lexer {
+    float: left;
+}
+
+.form-options-expire {
+    float: right;
+}
+
+.form-options-expire .add-on{
+    border-radius: 4px !important;
+    margin-right: 3px;
+}
+
+.form-horizontal .form-actions {
+    padding-left: 20px;
+}
+
+.twitter-follow-button-container {
+    float:right;
+    opacity: 0.5
+}
+.twitter-follow-button-container:hover{
+    opacity: 1;
+}
+
+.shortcut {
+    color: #AAA;
+    font-size: 13px;
+    font-weight: 300;
+    margin-left: 15px;
+}
+
+/* ----------------------------------------------------------------------------
+   Snippet Details
+---------------------------------------------------------------------------- */
+.snippet-options{
+    margin-bottom: 20px;
+}
+
+.snippet-reply {
+    margin-top: 30px;
+}
+
+.snippet-reply-hidden {
+    opacity: 0.3;
+}
+
+.snippet-reply-hidden,
+.snippet-reply-hidden *{
+    cursor: pointer;
+}
+
+.snippet-diff {
+    background: #f3f3f3;
+    margin-bottom: 30px;
+    padding: 1em 1em 0 1em;
+    border-radius: 4px;
+
+    display: none;
+}
+
+.snippet-rendered {
+    color: #666;
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 620px;
+    font-family: Helvetica, FreeSerif, serif;
+    font-weight: 300;
+}
+
+div.tree{
+    margin: 0 0 15px 0;
+    line-height: 1.8em;
+}
+
+div.tree ul,
+div.tree ul li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+div.tree ul li{
+    clear: both;
+}
+
+div.tree ul li div{
+    border-bottom: 1px solid #EEE;
+}
+
+div.tree span.diff{
+    float: right;
+}
+
+div.tree strong{
+    color: #111;
+    font-weight: normal;
+}
+
+div.tree ul li li{
+    padding-left: 0;
+    margin-left: 15px;
+    color: #ccc;
+    list-style: circle;
+}
+
+div.tree div.submit{
+    margin: 8px 0 0 0;
+    text-align: right;
+}
+
+div.tree div.submit input{
+    font-size: 0.8em;
+}
+

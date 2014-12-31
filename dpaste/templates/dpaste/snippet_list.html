@@ -4,7 +4,7 @@
 {% load url from future %}
 {% load dpaste_tags %}
 
-{% block title %}Snippet History{% endblock %}
+{% block title %}{{ block.super }}: Snippet History{% endblock %}
 {% block headline %}Snippet History{% endblock %}
 {% block dpaste_nav_history %}active{% endblock %}
 {% block page %}

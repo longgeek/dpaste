@@ -3,8 +3,8 @@
 {% load i18n %}
 {% load url from future %}
 
-{% block title %}{% trans "New snippet" %}{% endblock %}
-{% block headline %}{% trans "New snippet" %}{% endblock %}
+{% block title %}{{ block.super }}{% endblock %}
+{% block headline %}{{ site_name }}{% endblock %}
 {% block dpaste_nav_new %}active{% endblock %}
 
 {% block page %}
