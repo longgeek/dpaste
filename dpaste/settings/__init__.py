@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-                                                                                                                                              
 # Import global settings to make it easier to extend settings.
 from django.conf.global_settings import *
 
@@ -24,12 +25,12 @@ if not os.path.exists(VAR_ROOT):
 # Generic Django project settings
 #==============================================================================
 
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+DEBUG = True
+TEMPLATE_DEBUG = True
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 SITE_ID = 1
 
 # Make this unique, and don't share it with anybody.
@@ -48,9 +49,10 @@ SECRET_KEY = 'CHANGE_ME'
 USE_I18N = True
 USE_L10N = False
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'zh-cn'
 LANGUAGES = (
     ('en', 'English'),
+    ('zh-cn', u'简体中文'),
     ('de', 'German'),
     ('es', 'Spanish'),
     ('pt-br', 'Portugese (Brasil)'),
@@ -108,7 +110,7 @@ INSTALLED_APPS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dpaste',
+        'NAME': 'paste',
         'USER': 'root',
         'PASSWORD': '',
     }
