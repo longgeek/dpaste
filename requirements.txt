@@ -9,6 +9,7 @@ django==1.7.1
 django-mptt==0.6.1
 pygments==2.0.1
 requests==2.5.1
+markdown==2.5.2
 
 # Testing
 python-coveralls==2.4.3

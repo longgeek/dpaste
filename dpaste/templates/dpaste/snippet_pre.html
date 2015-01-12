@@ -1,1 +1,45 @@
-{% load dpaste_tags %}<div class="code {{ snippet.lexer }}"><ol>{% for line in snippet|highlight %}<li id="{{ forloop.counter }}">{{ line|safe|default:"&nbsp;" }}</li>{% endfor %}</ol></div>
+{% load dpaste_tags %}
+
+<style>
+  pre {
+    background: #1d1f21;
+  }
+
+  code {
+    background: #fff;
+    border-radius: 0;
+    padding: 20px 30px;
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  }
+
+</style>
+
+<div class="code {{ snippet.lexer }}">
+  {% if snippet.lexer == "markdown" %}
+	{% load staticfiles %}
+
+	<!-- Use of tomorrow-night theme. 
+	Come from -> http://jmblog.github.io/color-themes-for-highlightjs/tomorrow-night/
+	-->
+    <link rel="stylesheet" href="{% static "dpaste/highlight/styles/tomorrow-night.css" %}">
+
+	<!-- Syntax highlighting for the markdown pre and code.
+	Come from -> https://highlightjs.org/
+	-->
+    <script src="{% static "dpaste/highlight/highlight.js" %}"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+	<!-- Use django template filter, converting the text to markdown. -->
+    {{ snippet.content|convert_text|safe }}
+  {% else %}
+    <ol>
+      {% for line in snippet|highlight %}
+      <li id="{{ forloop.counter }}">
+  	  {{ line|safe|default:"&nbsp;" }}
+  	  </li>
+  	  {% endfor %}
+    </ol>
+  {% endif %}
+</div>
+<div class="code">
+</div>

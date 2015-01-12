@@ -23,10 +23,10 @@ from .highlight import (LEXER_DEFAULT, LEXER_KEYS, LEXER_LIST,
                               LEXER_WORDWRAP, PLAIN_CODE)
 from .models import ONETIME_LIMIT, Snippet
 
+from dpaste.settings import WEB_SITE_NAME
+
 template_globals = {
-    'site_name': getattr(settings, 'DPASTE_SITE_NAME', 'dpaste.de'),
-    'jquery_url': getattr(settings, 'DPASTE_JQUERY_URL',
-        '//ajax.googleapis.com/ajax/libs/jquery/1/jquery.js'),
+    'site_name': getattr(settings, 'DPASTE_SITE_NAME', WEB_SITE_NAME),
 }
 
 # -----------------------------------------------------------------------------

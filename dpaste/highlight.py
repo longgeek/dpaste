@@ -64,6 +64,7 @@ LEXER_LIST = getattr(settings, 'DPASTE_LEXER_LIST', (
         ('mako', 'Mako'),
         ('mason', 'Mason'),
         ('matlab', 'Matlab'),
+        ('markdown', 'MarkDown'),
         ('modula2', 'Modula'),
         ('monkey', 'Monkey'),
         ('mysql', 'MySQL'),

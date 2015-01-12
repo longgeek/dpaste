@@ -36,10 +36,6 @@ SITE_ID = 1
 SECRET_KEY = ''
 
 ALLOWED_HOSTS = (
-    'dpaste.de',
-    'www.dpaste.de',
-    'dpaste.org',
-    'www.dpaste.org',
     '127.0.0.1',
 )
 
@@ -111,9 +107,9 @@ INSTALLED_APPS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dev.db',
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dpaste',
+        'USER': 'root',
         'PASSWORD': '',
     }
 }
@@ -149,3 +145,5 @@ LOGGING = {
         },
     }
 }
+
+WEB_SITE_NAME = 'paste.coderpie.com'
